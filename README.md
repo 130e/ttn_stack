@@ -77,16 +77,25 @@ go install github.com/cloudflare/cfssl/cmd/...@latest
 ```
 
 ### Generate Certificates
-1. Navigate to the `cert_gen` directory
-2. Update `cert.json` to use your static IP (`192.168.10.2`)
+1. Navigate to the `cert_gen` directory `cd cert_gen`
+2. Update `cert.json` to use the static IP (`192.168.10.2`)
 3. Run the certificate generation commands:
 ```bash
-# Add Go bin to PATH
+# Add Go bin to PATH so we can access cfssl
 export PATH=$PATH:~/go/bin
 
 # Generate certificates
 cfssl genkey -initca ca.json | cfssljson -bare ca
 cfssl gencert -ca ca.pem -ca-key ca-key.pem cert.json | cfssljson -bare cert
+
+# Move to ttn folder and rename (TODO: change docker yml instead?)
+cp cert.pem ../cert.pem
+cp cert-key.pem ../key.pem
+cp ca.pem ../ca.pem
+
+# Permission
+cd ..
+sudo chown 886:886 ./cert.pem ./key.pem
 ```
 
 ## Configure TTN Docker Stack
