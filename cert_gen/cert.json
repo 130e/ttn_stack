@@ -1,0 +1,11 @@
+{
+  "hosts": ["192.168.10.2"],
+  "names": [
+    {
+      "C": "US",
+      "ST": "California",
+      "L": "Riverside",
+      "O": "The Things Demo"
+    }
+  ]
+}
